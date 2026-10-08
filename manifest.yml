@@ -8,3 +8,4 @@ applications:
       - java_buildpack
     env:
       BP_JAVA_VERSION: 21
+      JBP_CONFIG_TOMCAT: '{ tomcat: { version: 11.+ } }'

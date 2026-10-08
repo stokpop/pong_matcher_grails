@@ -28,9 +28,14 @@ Build the app. This creates `build/libs/pong_matcher_grails-0.1.war`.
 ./gradlew assemble
 ```
 
-Push the app. The `manifest.yml` file describes the app. It sets
-`BP_JAVA_VERSION: 21` because Grails 8 requires Java 21 and the Java buildpack
-uses Java 17 by default.
+Push the app. The `manifest.yml` file describes the app. It sets two
+environment variables for the Java buildpack:
+
+- `BP_JAVA_VERSION: 21`, because Grails 8 requires Java 21 and the buildpack
+  uses Java 17 by default.
+- `JBP_CONFIG_TOMCAT: '{ tomcat: { version: 11.+ } }'`, because Grails 8 is
+  based on Spring Boot 4, which requires Servlet 6.1 (Tomcat 11). The buildpack
+  uses Tomcat 10.1 by default.
 
 ```bash
 cf push
