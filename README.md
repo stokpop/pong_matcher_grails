@@ -3,8 +3,8 @@
 This is an app to match ping-pong players with each other. It's currently an
 API only, so you have to use `curl` to interact with it.
 
-It is an [Apache Grails][grails] 7 application (Spring Boot 3) and requires
-JDK 17 or later. It has an [acceptance test suite][acceptance-test] you might
+It is an [Apache Grails][grails] 8 application (Spring Boot 4) and requires
+JDK 21 or later. It has an [acceptance test suite][acceptance-test] you might
 like to look at.
 
 ## Running on Cloud Foundry
@@ -28,7 +28,9 @@ Build the app. This creates `build/libs/pong_matcher_grails-0.1.war`.
 ./gradlew assemble
 ```
 
-Push the app. The `manifest.yml` file describes the app.
+Push the app. The `manifest.yml` file describes the app. It sets
+`BP_JAVA_VERSION: 21` because Grails 8 requires Java 21 and the Java buildpack
+uses Java 17 by default.
 
 ```bash
 cf push
@@ -46,7 +48,7 @@ cf bind-service grailspong SERVICE-INSTANCE
 cf restage grailspong
 ```
 
-For Spring Boot 3 and 4 based apps, including Grails 7, the Java buildpack
+For Spring Boot 3 and 4 based apps, including Grails 8, the Java buildpack
 automatically adds [java-cfenv][java-cfenv] to the app. When a database
 service is bound, java-cfenv sets the Spring Boot `spring.datasource.*`
 properties from the service credentials.

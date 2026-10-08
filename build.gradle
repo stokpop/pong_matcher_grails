@@ -60,7 +60,16 @@ dependencies {
     testImplementation "org.spockframework:spock-core"
 }
 
-compileJava.options.release = 17
+// Grails 8 requires Java 21. Pin the bytecode level so building with a newer
+// JDK still produces classes that run on the Java 21 runtime used on Cloud Foundry.
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+}
 
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
